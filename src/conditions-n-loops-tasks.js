@@ -126,8 +126,58 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let res = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '1':
+        res += 'one ';
+        break;
+      case '2':
+        res += 'two ';
+        break;
+      case '3':
+        res += 'three ';
+        break;
+      case '4':
+        res += 'four ';
+        break;
+      case '5':
+        res += 'five ';
+        break;
+      case '6':
+        res += 'six ';
+        break;
+      case '7':
+        res += 'seven ';
+        break;
+      case '8':
+        res += 'eight ';
+        break;
+      case '9':
+        res += 'nine ';
+        break;
+      case '0':
+        res += 'zero ';
+        break;
+      case ',':
+        res += 'point ';
+        break;
+      case '.':
+        res += 'point ';
+        break;
+      case '-':
+        res += 'minus ';
+        break;
+      default:
+        res += '';
+    }
+  }
+  let myRes = '';
+  for (let i = 0; i < res.length - 1; i += 1) {
+    myRes += res[i];
+  }
+  return myRes;
 }
 
 /**
@@ -310,8 +360,46 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const strNumber = [];
+
+  const str = String(number);
+  for (let i = 0; i < str.length; i += 1) {
+    strNumber.push(str[i]);
+  }
+
+  const onePart = [];
+  let fixedNum = 0;
+  let fixedNumIndex = 0;
+  for (let i = strNumber.length - 1; i !== -1; i -= 1) {
+    const element = i - 1;
+    if (strNumber[i] <= strNumber[element]) {
+      onePart.push(strNumber[i]);
+    } else {
+      onePart.push(strNumber[i]);
+      fixedNum = +strNumber[element];
+      fixedNumIndex = element;
+      break;
+    }
+  }
+
+  let min = +onePart[0];
+  let minIndex = 0 + onePart.length;
+  for (let i = 0; i < onePart.length - 1; i += 1) {
+    if (min > +onePart[i] && +onePart[i] > fixedNum) {
+      min = +onePart[i];
+      minIndex = i + onePart.length;
+    }
+  }
+
+  const temp = strNumber[minIndex];
+  strNumber[minIndex] = strNumber[fixedNumIndex];
+  strNumber[fixedNumIndex] = temp;
+
+  return +strNumber
+    .slice(0, minIndex - 1)
+    .concat(strNumber.slice(minIndex - 1).sort((a, b) => a - b))
+    .join('');
 }
 
 module.exports = {
