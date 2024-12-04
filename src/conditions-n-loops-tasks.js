@@ -284,8 +284,24 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let index = 1; index < arr.length - 1; index += 1) {
+    let leftSide = 0;
+    let rightSide = 0;
+
+    for (let arrIndex = 0; arrIndex < arr.length; arrIndex += 1) {
+      if (arrIndex < index) {
+        leftSide += arr[arrIndex];
+      } else if (arrIndex > index) {
+        rightSide += arr[arrIndex];
+      }
+    }
+
+    if (leftSide === rightSide) {
+      return index;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -328,8 +344,26 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const matrixFriend = matrix;
+
+  const copyMatrix = [];
+  for (let i = 0; i < matrix.length; i += 1) {
+    copyMatrix[i] = [...matrix[i]];
+  }
+
+  let index = 0;
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = matrix[i].length - 1; j >= 0; j -= 1) {
+      matrixFriend[i][index] = copyMatrix[j][i];
+      index += 1;
+      if (index >= matrix[i].length) {
+        index = 0;
+      }
+    }
+  }
+
+  return matrix;
 }
 
 /**
