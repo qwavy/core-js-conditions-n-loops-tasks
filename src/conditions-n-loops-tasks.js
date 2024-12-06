@@ -67,10 +67,17 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
-}
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
 
+  if (!(queen.x % 2 === 0) === !(king.y % 2 === 0)) {
+    return true;
+  }
+
+  return false;
+}
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -402,9 +409,14 @@ function sortByAsc(/* arr */) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
+  const start = performance.now();
+  let forCycle = iterations;
+  if (iterations > iterations + str.length) {
+    forCycle = iterations / str.length;
+  }
   let result = str;
 
-  for (let i = 0; i < iterations; i += 1) {
+  for (let i = 0; i < forCycle; i += 1) {
     let evenSide = '';
     let oddSide = '';
     for (let j = 0; j < result.length; j += 1) {
@@ -416,7 +428,7 @@ function shuffleChar(str, iterations) {
     }
     result = `${evenSide}${oddSide}`;
   }
-
+  console.log(performance.now() - start);
   return result;
 }
 
