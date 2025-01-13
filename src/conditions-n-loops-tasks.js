@@ -67,16 +67,8 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(queen, king) {
-  if (queen.x === king.x || queen.y === king.y) {
-    return true;
-  }
-
-  if (!(queen.x % 2 === 0) === !(king.y % 2 === 0)) {
-    return true;
-  }
-
-  return false;
+function canQueenCaptureKing(/* queen, king */) {
+  throw new Error('Not implemented');
 }
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
@@ -332,19 +324,8 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(size) {
-  const matrix = [];
-  let num = 1;
-  for (let i = 0; i < size; i += 1) {
-    const arr = [];
-    for (let j = 0; j < size; j += 1) {
-      arr.push(num);
-      num += 1;
-    }
-    matrix.push(arr);
-  }
-
-  return matrix;
+function getSpiralMatrix(/* size */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -399,27 +380,31 @@ function rotateMatrix(matrix) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(arr) {
-  if (arr.length < 2) {
-    return arr;
+  function partition(arrayPartition, low, high) {
+    const arrayP = arrayPartition;
+    const pivot = arrayP[high];
+    let i = low - 1;
+
+    for (let j = low; j < high; j += 1) {
+      if (arrayP[j] < pivot) {
+        i += 1;
+        [arrayP[i], arrayP[j]] = [arrayP[j], arrayP[i]];
+      }
+    }
+
+    [arrayP[i + 1], arrayP[high]] = [arrayP[high], arrayP[i + 1]];
+    return i + 1;
   }
 
-  const pivot = arr[Math.floor(Math.random() * arr.length)];
-
-  const left = [];
-  const right = [];
-  const equal = [];
-
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i] < pivot) {
-      left.push(arr[i]);
-    } else if (arr[i] > pivot) {
-      right.push(arr[i]);
-    } else {
-      equal.push(arr[i]);
+  function quickSort(array, low, high) {
+    if (low < high) {
+      const pivotIndex = partition(array, low, high);
+      quickSort(array, low, pivotIndex - 1);
+      quickSort(array, pivotIndex + 1, high);
     }
   }
 
-  return [...sortByAsc(right), ...equal, ...sortByAsc(left)];
+  quickSort(arr, 0, arr.length - 1);
 }
 
 /**
@@ -439,28 +424,8 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(str, iterations) {
-  const start = performance.now();
-  let forCycle = iterations;
-  if (iterations > iterations + str.length) {
-    forCycle = iterations / str.length;
-  }
-  let result = str;
-
-  for (let i = 0; i < forCycle; i += 1) {
-    let evenSide = '';
-    let oddSide = '';
-    for (let j = 0; j < result.length; j += 1) {
-      if (j % 2 === 0) {
-        evenSide += result[j];
-      } else {
-        oddSide += result[j];
-      }
-    }
-    result = `${evenSide}${oddSide}`;
-  }
-  console.log(performance.now() - start);
-  return result;
+function shuffleChar(/* str, iterations */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -480,46 +445,8 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(number) {
-  const strNumber = [];
-
-  const str = String(number);
-  for (let i = 0; i < str.length; i += 1) {
-    strNumber.push(str[i]);
-  }
-
-  const onePart = [];
-  let fixedNum = 0;
-  let fixedNumIndex = 0;
-  for (let i = strNumber.length - 1; i !== -1; i -= 1) {
-    const element = i - 1;
-    if (strNumber[i] <= strNumber[element]) {
-      onePart.push(strNumber[i]);
-    } else {
-      onePart.push(strNumber[i]);
-      fixedNum = +strNumber[element];
-      fixedNumIndex = element;
-      break;
-    }
-  }
-
-  let min = +onePart[0];
-  let minIndex = 0 + onePart.length;
-  for (let i = 0; i < onePart.length - 1; i += 1) {
-    if (min > +onePart[i] && +onePart[i] > fixedNum) {
-      min = +onePart[i];
-      minIndex = i + onePart.length;
-    }
-  }
-
-  const temp = strNumber[minIndex];
-  strNumber[minIndex] = strNumber[fixedNumIndex];
-  strNumber[fixedNumIndex] = temp;
-
-  return +strNumber
-    .slice(0, minIndex - 1)
-    .concat(strNumber.slice(minIndex - 1).sort((a, b) => a - b))
-    .join('');
+function getNearestBigger(/* number */) {
+  throw new Error('Not implemented');
 }
 
 module.exports = {
